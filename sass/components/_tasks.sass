@@ -1,0 +1,141 @@
+.tasks
+	width: 50%
+	padding-right: 20px
+	.form
+		max-width: 580px
+		&__group
+			position: relative
+			display: flex
+			align-items: center
+			justify-content: space-between
+			background: $bg-dark
+			box-shadow: $task-input-shadow
+			border-radius: 16px
+		&__input
+			width: 66%
+			height: 50px
+			padding: 0px 30px
+			border: none
+			border-radius: 16px
+			outline: none
+			background: transparent
+			color: $light-blue
+			font-size: 16px
+			text-overflow: ellipsis
+			white-space: nowrap
+			overflow: hidden
+			&::placeholder
+				transform: translate(3px, -1px)
+				font-family: $font-main
+				font-weight: 400
+				font-size: 16px
+				color: $light-blue
+				opacity: 0.7
+		&__btn
+			padding: 6px 12px
+			border-radius: 10px
+			position: absolute
+			right: 18px
+			background: transparent
+			border: none
+			outline: none
+			transition: $transition-base
+			&:hover, &:focus
+				box-shadow: $task-shadow
+				svg
+					transform: scale(1.1)
+			&:active
+				box-shadow: $task-input-shadow
+				svg
+					transform: scale(0.9)
+			svg
+				transition: $transition-base
+	&__all
+		width: 100%
+		margin-top: 30px
+		margin-left: -15px
+		padding: 10px 15px
+		max-height: 400px
+		overflow-y: auto
+	&__list
+		.task
+			min-height: 50px
+			display: flex
+			justify-content: space-between
+			gap: 10px
+			align-items: center
+			padding: 0 30px
+			list-style: none
+			box-shadow: $task-shadow
+			border-radius: 16px
+			transition: $transition-base
+			&__done
+				box-shadow: $task-done-shadow
+			&:not(:first-child)
+				margin-top: 15px
+			.task-btn-check
+				min-width: 18px
+				min-height: 18px
+				background: transparent
+				border-radius: 100%
+				border: 2px solid $light-blue
+				transition: $transition-base
+				&:hover
+					transform: scale(1.1)
+					background: rgba(148, 173, 207, 0.3)
+				&:active
+					background: $light-blue
+				&__done
+					background: $light-blue
+					&:hover
+						background: $light-blue
+			.task-title
+				font-size: 18px
+				font-weight: 500
+				text-overflow: ellipsis
+				white-space: nowrap
+				overflow: hidden
+				transition: $transition-base
+				&__done
+					text-decoration: line-through $light-blue
+					font-size: 16px
+			.task-btns-wrap
+				display: flex
+				gap: 15px
+				align-items: center
+				.task-btn-edit
+					width: 18px
+					height: 18px
+					background-color: transparent
+					background-image: url(../img/edit-icon.svg)
+					border: none
+					justify-self: flex-end
+					transition: $transition-base
+					&:hover
+						transform: scale(1.1)
+					&__done
+						transform: scale(0.9)
+				.task-btn-delete
+					position: relative
+					width: 18px
+					height: 18px
+					background: transparent
+					border: none
+					&::before, &::after
+						content: ''
+						position: absolute
+						right: 0
+						width: 18px
+						height: 2px
+						background-color: $light-blue
+						border-radius: 6px
+						transition: $transition-base
+					&::before
+						transform: rotate(-45deg)
+					&::after
+						transform: rotate(45deg)
+					&:hover
+						&::before, &::after
+							transform: rotate(0deg) scale(1.1)
+					&:active
+						transform: rotate(0deg) scale(0.9)

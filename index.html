@@ -7,14 +7,80 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
 			rel="stylesheet"
 		/>
+		<link rel="stylesheet" href="./css/style.min.css" />
 		<title>Document</title>
 	</head>
 	<body>
+		<div class="container">
+			<!-- TASKS BLOCK -->
+			<div class="tasks">
+				<!-- TASK INPUT -->
+				<form class="form" id="form">
+					<div class="form__group">
+						<input
+							type="text"
+							class="form__input"
+							id="taskInput"
+							placeholder="Добавте новую задачу"
+							autocomplete="off"
+							required
+						/>
+						<button type="submit" class="form__btn">
+							<svg
+								width="11"
+								height="18"
+								viewBox="0 0 13 20"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M1.75 2L10.2896 9.6875C10.356 9.74361 10.409 9.81138 10.4451 9.88663C10.4813 9.96188 10.5 10.043 10.5 10.125C10.5 10.207 10.4813 10.2881 10.4451 10.3634C10.409 10.4386 10.356 10.5064 10.2896 10.5625L1.75 18.25"
+									stroke="#94ADCF"
+									stroke-width="3.42857"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+						</button>
+					</div>
+				</form>
+				<!-- TASK INPUT END -->
 
-		
+				<!-- ALL TASKS -->
+				<div class="tasks__all">
+					<ul class="tasks__list" id="tasksList">
+						<!-- addTask.js TEMPLATE -->
+					</ul>
+				</div>
+				<!-- ALL TASKS END -->
+			</div>
+			<!-- TASKS BLOCK END -->
 
+			<!-- EDITOR BLOCK -->
+			<div class="editor" id="editor">
+				<div class="editor__container">
+					<h2>Editor</h2>
+					<form class="editor-form">
+						<textarea
+							class="editor-form__input"
+							type="text"
+							id="editorInput"
+							data-id=""
+							disabled
+							style="width: unset; height: unset"
+						></textarea>
+						<button type="submit" data-action="edited" class="editor-form__btn">
+							Изменить
+						</button>
+					</form>
+				</div>
+			</div>
+			<!-- EDITOR BLOCK END -->
+		</div>
+
+		<script src="./js/main.js"></script>
 	</body>
 </html>
