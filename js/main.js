@@ -84,21 +84,32 @@ function editTask(e) {
 	editorInput.focus()
 	editorInput.value = text
 	editorInput.dataset.id = id
+	editorInput.placeholder = 'Введите изменения задачи'
 
 	saveToLocalStorage()
 
-	const tx = document.getElementsByTagName('textarea')
-	for (let i = 0; i < tx.length; i++) {
-		tx[i].setAttribute(
+	const editBtn = document.querySelector('[data-action="edited"]')
+
+	const textarea = document.getElementsByTagName('textarea')
+	for (let i = 0; i < textarea.length; i++) {
+		textarea[i].setAttribute(
 			'style',
-			'height:' + tx[i].scrollHeight + 'px;width:unset;'
+			'height:' + textarea[i].scrollHeight + 'px;width:unset;'
 		)
-		tx[i].addEventListener('input', OnInput, false)
+		textarea[i].addEventListener('input', onInput, false)
 	}
 
-	function OnInput() {
+	function onInput() {
 		this.style.height = 'auto'
 		this.style.height = this.scrollHeight + 'px'
+
+		if (editorInput.value.length > 0) {
+			editBtn.removeAttribute('disabled')
+			editBtn.classList.remove('--disabled')
+		} else {
+			editBtn.setAttribute('disabled', 'true')
+			editBtn.classList.add('--disabled')
+		}
 	}
 }
 
@@ -110,7 +121,6 @@ function setEditedTask(e) {
 	e.preventDefault()
 
 	const parentNode = document.querySelector('#editorInput')
-	console.log(parentNode)
 
 	editorInput.removeAttribute('disabled')
 
@@ -125,10 +135,12 @@ function setEditedTask(e) {
 
 	if (e.target.dataset.action === 'edited') {
 		editorInput.setAttribute('disabled', 'true')
+		editorInput.style.height = 'auto'
+		e.target.setAttribute('disabled', 'true')
+		e.target.classList.toggle('--disabled')
 	}
 
 	parentNode.value = ''
-	console.log(task)
 }
 
 function deleteTask(e) {

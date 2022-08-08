@@ -27,7 +27,10 @@
 				box-shadow: $task-shadow
 				outline: none
 				resize: none
-			&__btn
+				&::placeholder
+					color: $light-blue
+					opacity: 0.5
+			.editor-form-btn
 				padding: 10px 20px
 				font-size: 18px
 				font-weight: 500
@@ -36,3 +39,11 @@
 				border-radius: 16px
 				background: none
 				box-shadow: $task-shadow
+				cursor: pointer
+				transition: $transition-base
+				&:active
+					box-shadow: $task-done-shadow
+			.editor-form-btn.--disabled
+				box-shadow: $task-done-shadow
+				cursor: not-allowed
+				opacity: 0.5

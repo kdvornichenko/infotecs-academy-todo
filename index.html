@@ -62,7 +62,7 @@
 			<!-- EDITOR BLOCK -->
 			<div class="editor" id="editor">
 				<div class="editor__container">
-					<h2>Editor</h2>
+					<h2>Редактор</h2>
 					<form class="editor-form">
 						<textarea
 							class="editor-form__input"
@@ -70,9 +70,15 @@
 							id="editorInput"
 							data-id=""
 							disabled
-							style="width: unset; height: unset"
+							style="width: unset"
+							placeholder="Нажмите на значок редактирование задачи"
 						></textarea>
-						<button type="submit" data-action="edited" class="editor-form__btn">
+						<button
+							type="submit"
+							data-action="edited"
+							class="editor-form-btn --disabled"
+							disabled
+						>
 							Изменить
 						</button>
 					</form>
