@@ -57,6 +57,14 @@
 		padding: 10px 15px
 		max-height: 400px
 		overflow-y: auto
+		&::-webkit-scrollbar
+			width: 10px
+		&::-webkit-scrollbar-track
+			box-shadow: $task-input-shadow
+			border-radius: 50px
+		&::-webkit-scrollbar-thumb
+			background: $light-blue
+			border-radius: 16px
 	&__list
 		.task
 			padding: 0 30px
@@ -82,13 +90,13 @@
 					min-height: 18px
 					background: transparent
 					border-radius: 100%
-					border: 2px solid $light-blue
+					border: 2px solid $light-green
 					transition: $transition-base
 					&:hover
 						transform: scale(1.1)
 						background: rgba(148, 173, 207, 0.3)
 					&:active
-						background: $light-blue
+						background: $light-green
 					&__done
 						background: $light-green
 						border-color: $light-green
