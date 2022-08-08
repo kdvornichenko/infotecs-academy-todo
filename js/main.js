@@ -131,6 +131,7 @@ function setEditedTask(e) {
 
 	const taskEditedText = document.getElementById(id).querySelector('p')
 	taskEditedText.innerText = task.text
+	taskEditedText.title = task.text
 	saveToLocalStorage()
 
 	if (e.target.dataset.action === 'edited') {
