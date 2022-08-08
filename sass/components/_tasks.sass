@@ -59,12 +59,12 @@
 		overflow-y: auto
 	&__list
 		.task
+			padding: 0 30px
 			min-height: 50px
 			display: flex
 			justify-content: space-between
 			gap: 10px
 			align-items: center
-			padding: 0 30px
 			list-style: none
 			box-shadow: $task-shadow
 			border-radius: 16px
@@ -73,28 +73,50 @@
 				box-shadow: $task-done-shadow
 			&:not(:first-child)
 				margin-top: 15px
-			.task-btn-check
-				min-width: 18px
-				min-height: 18px
-				background: transparent
-				border-radius: 100%
-				border: 2px solid $light-blue
-				transition: $transition-base
-				&:hover
-					transform: scale(1.1)
-					background: rgba(148, 173, 207, 0.3)
-				&:active
-					background: $light-blue
-				&__done
-					background: $light-blue
+			.task-progress-btns
+				display: flex
+				align-items: center
+				gap: 10px
+				.task-btn-check
+					min-width: 18px
+					min-height: 18px
+					background: transparent
+					border-radius: 100%
+					border: 2px solid $light-blue
+					transition: $transition-base
 					&:hover
+						transform: scale(1.1)
+						background: rgba(148, 173, 207, 0.3)
+					&:active
 						background: $light-blue
+					&__done
+						background: $light-green
+						border-color: $light-green
+				.task-btn-inProgress
+					min-width: 18px
+					min-height: 18px
+					background: transparent
+					border-radius: 100%
+					border: 2px solid $light-blue
+					transition: $transition-base
+					&:hover
+						transform: scale(1.1)
+						background: rgba(148, 173, 207, 0.3)
+					&:active
+						background: $light-blue
+					&__done
+						background: $light-blue
+						border-color: $light-blue
 			.task-title
 				font-size: 18px
 				font-weight: 500
 				text-overflow: ellipsis
 				white-space: nowrap
 				overflow: hidden
+				background: $bg-dark
+				border: none
+				resize: none
+				color: $light-blue
 				transition: $transition-base
 				&__done
 					text-decoration: line-through $light-blue

@@ -12,6 +12,8 @@ if (localStorage.getItem('tasks')) {
 
 form.addEventListener('submit', addTask)
 
+tasksList.addEventListener('click', inProgressTask)
+
 tasksList.addEventListener('click', doneTask)
 
 tasksList.addEventListener('click', editTask)
@@ -29,6 +31,7 @@ function addTask(e) {
 		id: Date.now(),
 		text: taskText,
 		done: false,
+		inProgress: false,
 	}
 
 	tasks.push(newTask)
@@ -39,6 +42,45 @@ function addTask(e) {
 
 	taskInput.value = ''
 	taskInput.focus()
+}
+
+function inProgressTask(e) {
+	if (e.target.dataset.action !== 'inProgress') {
+		return
+	}
+
+	const parentNode = e.target.closest('li')
+
+	const id = Number(parentNode.id)
+	const task = tasks.find(task => task.id === id)
+	task.inProgress = !task.inProgress
+
+	if (task.done === true) {
+		task.done = false
+
+		taskClassesSwitch(e)
+	}
+
+	saveToLocalStorage()
+
+	const taskBtnInProgress = parentNode.querySelector('.task-btn-inProgress')
+	taskBtnInProgress.classList.toggle('task-btn-inProgress__done')
+}
+
+function taskClassesSwitch(e) {
+	const parentNode = e.target.closest('li')
+
+	const taskBg = parentNode
+	taskBg.classList.toggle('task__done')
+
+	const taskBtnCheck = parentNode.querySelector('.task-btn-check')
+	taskBtnCheck.classList.toggle('task-btn-check__done')
+
+	const taskTitle = parentNode.querySelector('.task-title')
+	taskTitle.classList.toggle('task-title__done')
+
+	const taskBtnEdit = parentNode.querySelector('.task-btn-edit')
+	taskBtnEdit.classList.toggle('task-btn-edit__done')
 }
 
 function doneTask(e) {
@@ -52,19 +94,15 @@ function doneTask(e) {
 	const task = tasks.find(task => task.id === id)
 	task.done = !task.done
 
+	if (task.inProgress === true) {
+		task.inProgress = false
+		const taskBtnInProgress = parentNode.querySelector('.task-btn-inProgress')
+		taskBtnInProgress.classList.toggle('task-btn-inProgress__done')
+	}
+
 	saveToLocalStorage()
 
-	const taskBg = parentNode
-	taskBg.classList.toggle('task__done')
-
-	const taskBtnCheck = parentNode.querySelector('.task-btn-check')
-	taskBtnCheck.classList.toggle('task-btn-check__done')
-
-	const taskTitle = parentNode.querySelector('.task-title')
-	taskTitle.classList.toggle('task-title__done')
-
-	const taskBtnEdit = parentNode.querySelector('.task-btn-edit')
-	taskBtnEdit.classList.toggle('task-btn-edit__done')
+	taskClassesSwitch(e)
 }
 
 function editTask(e) {
@@ -169,6 +207,10 @@ function saveToLocalStorage() {
 function renderTask(task) {
 	const bgClass = task.done ? 'task task__done' : 'task'
 
+	const btnInProgressClass = task.inProgress
+		? 'task-btn-inProgress task-btn-inProgress__done'
+		: 'task-btn-inProgress'
+
 	const btnCheckClass = task.done
 		? 'task-btn-check task-btn-check__done'
 		: 'task-btn-check'
@@ -180,6 +222,15 @@ function renderTask(task) {
 		: 'task-btn-edit'
 
 	const taskHTML = `<li id="${task.id}" class="${bgClass}">
+											<div class="task-progress-btns">
+											<button
+												type="button"
+												data-action="inProgress"
+												class="${btnInProgressClass}"
+											>
+											
+												<div class="btn-bg-done"></div>
+											</button>
 											<button
 												type="button"
 												data-action="done"
@@ -187,6 +238,8 @@ function renderTask(task) {
 											>
 												<div class="btn-bg-done"></div>
 											</button>
+											
+											</div>
 											<p class="${titleClass}" title="${task.text}">${task.text}</p>
 											
 											<div class="task-btns-wrap">

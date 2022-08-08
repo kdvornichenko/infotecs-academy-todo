@@ -25,12 +25,32 @@ ul, ol, li
 	margin: 0
 
 .container
+	width: 1000px
 	margin: auto
 	display: flex
-	justify-content: space-between
-	min-height: 210px
-	width: 800px
-	padding: 75px
-	background: $bg-dark
-	box-shadow: $task-shadow
-	border-radius: 65px
+	flex-direction: column
+	.wrap
+		display: flex
+		justify-content: space-between
+		min-height: 210px
+		padding: 75px
+		background: $bg-dark
+		box-shadow: $task-shadow
+		border-radius: 65px
+	.legend
+		margin: 20px 0 0 80px
+		display: flex
+		gap: 10px
+		flex-direction: column
+		.legend-btn
+			width: 18px
+			height: 18px
+			background: transparent
+			border-radius: 100%
+			border: 2px solid $light-blue
+			cursor: auto
+			&__inProgress
+				background: $light-blue
+			&__done
+				background: $light-green
+				border-color: $light-green
