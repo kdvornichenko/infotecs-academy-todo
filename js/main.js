@@ -5,6 +5,7 @@ const searchInput = document.querySelector('#searchInput')
 const taskInput = document.querySelector('#taskInput')
 const tasksList = document.querySelector('#tasksList')
 const editor = document.querySelector('#editor')
+const editorInput = document.querySelector('#editorInput')
 
 let tasks = []
 
@@ -123,7 +124,6 @@ function editTask(e) {
 	const parentNode = e.target.closest('li')
 	const id = Number(parentNode.id)
 	const text = parentNode.querySelector('p').innerText
-	const editorInput = document.querySelector('#editorInput')
 
 	editorInput.removeAttribute('disabled')
 	editorInput.focus()
@@ -209,6 +209,11 @@ function deleteTask(e) {
 	// Удаление задачи через фильтрацию массива
 
 	tasks = tasks.filter(task => task.id !== id)
+
+	if (parentNode.id === editorInput.dataset.id) {
+		editorInput.setAttribute('disabled', 'true')
+		editorInput.value = ''
+	}
 
 	saveToLocalStorage()
 
