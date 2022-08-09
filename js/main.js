@@ -147,11 +147,11 @@ function taskStatus(e) {
 			task.done = false
 			// Переключаем класс кнопки "Выполнено"
 			taskBtnDone.classList.toggle('task-btn-check__done')
+			// Вызываем функцию для переключения стиля задачи
+			taskClassesSwitch(e)
+			// Сохраняем в Локальное хранилище
+			saveToLocalStorage()
 		}
-		// Вызываем функцию для переключения стиля задачи
-		taskClassesSwitch(e)
-		// Сохраняем в Локальное хранилище
-		saveToLocalStorage()
 		// Проверяем содержит ли кнопка атрибут 'done'
 	} else if (e.target.dataset.action === 'done') {
 		// Переключаем класс кнопки
