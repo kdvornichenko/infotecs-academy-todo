@@ -1,18 +1,29 @@
 const form = document.querySelector('#form')
+const searchShowBtn = document.querySelector('#searchShowBtn')
+const formSearch = document.querySelector('#formSearch')
+const searchInput = document.querySelector('#searchInput')
 const taskInput = document.querySelector('#taskInput')
 const tasksList = document.querySelector('#tasksList')
 const editor = document.querySelector('#editor')
 
 let tasks = []
 
-if (localStorage.getItem('tasks')) {
-	tasks = JSON.parse(localStorage.getItem('tasks'))
-	tasks.forEach(task => renderTask(task))
+function renderFromLocalStorage() {
+	if (localStorage.getItem('tasks')) {
+		tasks = JSON.parse(localStorage.getItem('tasks'))
+		tasks.forEach(task => renderTask(task))
+	}
 }
+
+renderFromLocalStorage()
 
 form.addEventListener('submit', addTask)
 
-tasksList.addEventListener('click', inProgressTask)
+formSearch.addEventListener('input', search)
+
+searchShowBtn.addEventListener('click', searchInputShow)
+
+tasksList.addEventListener('click', inProcessTask)
 
 tasksList.addEventListener('click', doneTask)
 
@@ -31,7 +42,7 @@ function addTask(e) {
 		id: Date.now(),
 		text: taskText,
 		done: false,
-		inProgress: false,
+		inProcess: false,
 	}
 
 	tasks.push(newTask)
@@ -44,8 +55,8 @@ function addTask(e) {
 	taskInput.focus()
 }
 
-function inProgressTask(e) {
-	if (e.target.dataset.action !== 'inProgress') {
+function inProcessTask(e) {
+	if (e.target.dataset.action !== 'inProcess') {
 		return
 	}
 
@@ -53,7 +64,7 @@ function inProgressTask(e) {
 
 	const id = Number(parentNode.id)
 	const task = tasks.find(task => task.id === id)
-	task.inProgress = !task.inProgress
+	task.inProcess = !task.inProcess
 
 	if (task.done === true) {
 		task.done = false
@@ -63,15 +74,14 @@ function inProgressTask(e) {
 
 	saveToLocalStorage()
 
-	const taskBtnInProgress = parentNode.querySelector('.task-btn-inProgress')
-	taskBtnInProgress.classList.toggle('task-btn-inProgress__done')
+	const taskBtnInProcess = parentNode.querySelector('.task-btn-inProcess')
+	taskBtnInProcess.classList.toggle('task-btn-inProcess__done')
 }
 
 function taskClassesSwitch(e) {
 	const parentNode = e.target.closest('li')
 
-	const taskBg = parentNode
-	taskBg.classList.toggle('task__done')
+	parentNode.classList.toggle('task__done')
 
 	const taskBtnCheck = parentNode.querySelector('.task-btn-check')
 	taskBtnCheck.classList.toggle('task-btn-check__done')
@@ -94,10 +104,10 @@ function doneTask(e) {
 	const task = tasks.find(task => task.id === id)
 	task.done = !task.done
 
-	if (task.inProgress === true) {
-		task.inProgress = false
-		const taskBtnInProgress = parentNode.querySelector('.task-btn-inProgress')
-		taskBtnInProgress.classList.toggle('task-btn-inProgress__done')
+	if (task.inProcess === true) {
+		task.inProcess = false
+		const taskBtnInProcess = parentNode.querySelector('.task-btn-inProcess')
+		taskBtnInProcess.classList.toggle('task-btn-inProcess__done')
 	}
 
 	saveToLocalStorage()
@@ -111,11 +121,8 @@ function editTask(e) {
 	}
 
 	const parentNode = e.target.closest('li')
-
 	const id = Number(parentNode.id)
-
 	const text = parentNode.querySelector('p').innerText
-
 	const editorInput = document.querySelector('#editorInput')
 
 	editorInput.removeAttribute('disabled')
@@ -127,8 +134,8 @@ function editTask(e) {
 	saveToLocalStorage()
 
 	const editBtn = document.querySelector('[data-action="edited"]')
-
 	const textarea = document.getElementsByTagName('textarea')
+
 	for (let i = 0; i < textarea.length; i++) {
 		textarea[i].setAttribute(
 			'style',
@@ -149,6 +156,12 @@ function editTask(e) {
 			editBtn.classList.add('--disabled')
 		}
 	}
+
+	editor.classList.toggle('editor__show')
+	editor.scrollIntoView({
+		behavior: 'smooth',
+		block: 'start',
+	})
 }
 
 function setEditedTask(e) {
@@ -180,6 +193,8 @@ function setEditedTask(e) {
 	}
 
 	parentNode.value = ''
+
+	editor.classList.toggle('editor__show')
 }
 
 function deleteTask(e) {
@@ -204,12 +219,46 @@ function saveToLocalStorage() {
 	localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
+function searchInputShow() {
+	if (searchShowBtn.dataset.action === 'search') {
+		searchShowBtn.src = './img/cross-icon.svg'
+		searchShowBtn.dataset.action = 'cross'
+	} else {
+		searchShowBtn.src = './img/search-icon.svg'
+		searchShowBtn.dataset.action = 'search'
+	}
+
+	formSearch.classList.toggle('formSearch__show')
+	searchInput.focus()
+	searchInput.value = ''
+	search()
+}
+
+function search() {
+	const searchInputValue = searchInput.value
+	let search = tasks.filter(task =>
+		task.text.toLowerCase().includes(searchInputValue.toLowerCase())
+	)
+
+	for (let i = 0; i < search.length; i++) {
+		const itemToShow = document.getElementById(search[i].id)
+		itemToShow.style.display = ''
+	}
+
+	let searchArr = tasks.filter(e => !search.includes(e))
+
+	for (let i = 0; i < searchArr.length; i++) {
+		const itemToHide = document.getElementById(searchArr[i].id)
+		itemToHide.style.display = 'none'
+	}
+}
+
 function renderTask(task) {
 	const bgClass = task.done ? 'task task__done' : 'task'
 
-	const btnInProgressClass = task.inProgress
-		? 'task-btn-inProgress task-btn-inProgress__done'
-		: 'task-btn-inProgress'
+	const btnInProcessClass = task.inProcess
+		? 'task-btn-inProcess task-btn-inProcess__done'
+		: 'task-btn-inProcess'
 
 	const btnCheckClass = task.done
 		? 'task-btn-check task-btn-check__done'
@@ -225,8 +274,8 @@ function renderTask(task) {
 											<div class="task-progress-btns">
 											<button
 												type="button"
-												data-action="inProgress"
-												class="${btnInProgressClass}"
+												data-action="inProcess"
+												class="${btnInProcessClass}"
 											>
 											
 												<div class="btn-bg-done"></div>

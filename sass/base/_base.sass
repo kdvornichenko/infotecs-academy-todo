@@ -12,7 +12,7 @@ h1, h2, h3, h4, h5, h6
 	margin: 0
 	font-weight: normal
 	font-size: unset
-	
+
 button
 	cursor: pointer
 
@@ -26,6 +26,7 @@ ul, ol, li, p, button, input, form
 	display: flex
 	flex-direction: column
 	.wrap
+		position: relative
 		display: flex
 		justify-content: space-between
 		min-height: 210px
@@ -33,24 +34,69 @@ ul, ol, li, p, button, input, form
 		background: $bg-dark
 		box-shadow: $task-shadow
 		border-radius: 65px
-	.legend
-		margin: 20px 0 0 80px
-		display: flex
-		gap: 10px
-		flex-direction: column
-		.legend-btn
-			width: 18px
-			height: 18px
-			background: transparent
-			border-radius: 100%
-			border: 2px solid $light-blue
-			cursor: auto
-			&__wrap
-				display: flex
-				align-items: center
+		.legend
+			bottom: 20px
+			left: 105px
+			position: absolute
+			display: flex
+			gap: 10px
+			.legend-btn
+				width: 18px
+				height: 18px
+				background: transparent
+				border-radius: 100%
+				border: 2px solid $light-blue
+				cursor: auto
+				&__wrap
+					display: flex
+					align-items: center
+					gap: 5px
+				&__inProcess
+					background: $light-blue
+				&__done
+					background: $light-green
+					border-color: $light-green
+
+@media screen and ( max-width: 769px )
+	body
+		padding-top: 30px
+	.container
+		width: 90%
+		.wrap
+			flex-direction: column
+			min-height: unset
+			.legend
+				bottom: 15px
+				left: 90px
+
+@media screen and ( max-width: 641px )
+	.container
+		.wrap
+			padding: 40px
+			border-radius: 32px
+			.legend
+				bottom: 8px
+				left: 55px
+
+@media screen and ( max-width: 520px )
+	.container
+		.wrap
+			padding: 20px 20px 30px 20px
+			.legend
 				gap: 5px
-			&__inProgress
-				background: $light-blue
-			&__done
-				background: $light-green
-				border-color: $light-green
+				bottom: 5px
+				left: 36px
+				font-size: 14px
+				&__btn-wrap
+					gap: 2px
+				.legend-btn
+					width: 14px
+					height: 14px
+
+@media screen and ( max-width: 410px )
+	.container
+		.wrap
+			.legend
+				bottom: 5px
+				left: 20px
+				font-size: 10px

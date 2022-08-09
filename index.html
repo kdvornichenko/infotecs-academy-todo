@@ -49,6 +49,25 @@
 							</button>
 						</div>
 					</form>
+					<form class="formSearch" id="formSearch" data-action="search">
+						<div class="formSearch__group">
+							<img
+								src="./img/search-icon.svg"
+								alt="Search"
+								class="formSearch__searchIcon"
+								id="searchShowBtn"
+								data-action="search"
+							/>
+							<input
+								type="text"
+								class="formSearch__input"
+								id="searchInput"
+								placeholder="Поиск"
+								autocomplete="off"
+								required
+							/>
+						</div>
+					</form>
 					<!-- TASK INPUT END -->
 
 					<!-- ALL TASKS -->
@@ -86,25 +105,25 @@
 						</form>
 					</div>
 				</div>
+				<div class="legend">
+					<div class="legend-btn__wrap">
+						<button type="button" class="legend-btn legend-btn__base"></button>
+						<p>- ожидает</p>
+					</div>
+					<div class="legend-btn__wrap">
+						<button
+							type="button"
+							class="legend-btn legend-btn__inProcess"
+						></button>
+						<p>- в процессе</p>
+					</div>
+					<div class="legend-btn__wrap">
+						<button type="button" class="legend-btn legend-btn__done"></button>
+						<p>- выполнена</p>
+					</div>
+				</div>
 			</div>
 			<!-- EDITOR BLOCK END -->
-			<div class="legend">
-				<div class="legend-btn__wrap">
-					<button type="button" class="legend-btn legend-btn__base"></button>
-					<p> - ожидает</p>
-				</div>
-				<div class="legend-btn__wrap">
-					<button
-						type="button"
-						class="legend-btn legend-btn__inProgress"
-					></button>
-					<p> - в процессе</p>
-				</div>
-				<div class="legend-btn__wrap">
-					<button type="button" class="legend-btn legend-btn__done"></button>
-					<p> - выполнена</p>
-				</div>
-			</div>
 		</div>
 
 		<script src="./js/main.js"></script>
