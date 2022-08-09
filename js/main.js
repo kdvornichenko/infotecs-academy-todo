@@ -325,6 +325,9 @@ function deleteTask(e) {
 	saveToLocalStorage()
 	// Удаляем родителя кнопки, т.е. задачу
 	parentNode.remove()
+	// Для мобильной версии:
+	// Переключаем класс редактора и прячем его
+	editor.classList.toggle('editor__show')
 }
 
 // Функция рендера задачи на странице
