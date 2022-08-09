@@ -145,6 +145,8 @@ function taskStatus(e) {
 		// Дополнительно переключаем состояние задачи "Выполнено" на противоположное, чтобы не было возможности перевести задачу в два состояния - "В процессе" и "Выполнено" одновременно
 		if (task.done === true) {
 			task.done = false
+			// Переключаем класс кнопки "Выполнено"
+			taskBtnDone.classList.toggle('task-btn-check__done')
 		}
 		// Вызываем функцию для переключения стиля задачи
 		taskClassesSwitch(e)
@@ -175,9 +177,9 @@ function taskClassesSwitch(e) {
 	const parentNode = e.target.closest('li')
 	// Переключаем класс задачи "Выполнено"
 	parentNode.classList.toggle('task__done')
-	// Находим зеленую кнопку "Выполнено" и переключаем ее класс
-	const taskBtnCheck = parentNode.querySelector('.task-btn-check')
-	taskBtnCheck.classList.toggle('task-btn-check__done')
+	// // Находим зеленую кнопку "Выполнено" и переключаем ее класс
+	// const taskBtnCheck = parentNode.querySelector('.task-btn-check')
+	// taskBtnCheck.classList.toggle('task-btn-check__done')
 	// Находим текст задачи и переключаем его класс
 	const taskTitle = parentNode.querySelector('.task-title')
 	taskTitle.classList.toggle('task-title__done')
